@@ -480,7 +480,10 @@ function closeMobileMore(){const panel=document.getElementById('mobileMorePanel'
  [nav,backdrop,panel].forEach(el=>{if(el&&el.parentElement!==document.body)document.body.appendChild(el)});
  if(nav&&nav.dataset.bound!=='1'){
   nav.dataset.bound='1';
+  let lastTouchActivation=0;
   const activate=function(event){
+   if(event.type==='touchend')lastTouchActivation=Date.now();
+   if(event.type==='click'&&Date.now()-lastTouchActivation<800)return;
    const button=event.target&&event.target.closest?event.target.closest('button'):null;
    if(!button||!nav.contains(button))return;
    if(button.id==='mobileMoreButton'){
