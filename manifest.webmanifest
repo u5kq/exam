@@ -1,0 +1,13 @@
+{
+  "name": "folio.exam — 高校入試サポート",
+  "short_name": "folio.exam",
+  "description": "高校入試の情報・成績・出願準備を整理する受験サポートツール",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6f7f9",
+  "theme_color": "#111111",
+  "icons": [
+    {"src":"./exam-icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}
