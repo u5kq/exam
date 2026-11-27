@@ -289,6 +289,27 @@ button:focus-visible,a:focus-visible{outline:3px solid #a8a0f3!important;outline
  #page-home .portfolio-footer{line-height:1.6}
  #page-home .mission-room{margin-top:18px}
 }
+/* iPhone Safari: prevent native date control from exceeding the hero card */
+@media(max-width:760px){
+  .home-hero,.home-hero *{min-width:0}
+  .home-countdown,.countdown-setting{width:100%;max-width:100%;min-width:0}
+  .countdown-setting{display:block}
+  .countdown-setting input,
+  #examTargetDate{
+    display:block;
+    width:100%;
+    max-width:100%;
+    min-width:0;
+    box-sizing:border-box;
+    -webkit-appearance:none;
+    appearance:none;
+    font-size:16px;
+  }
+  .home-hero{overflow:hidden}
+  .home-hero-top,.hero-bottom{min-width:0;flex-wrap:wrap}
+  .hero-bottom{gap:10px}
+  .hero-bottom span{min-width:0;overflow-wrap:anywhere}
+}
 </style>
 </head>
 <body><div class="app">
