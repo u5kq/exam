@@ -289,6 +289,40 @@ button:focus-visible,a:focus-visible{outline:3px solid #a8a0f3!important;outline
  #page-home .portfolio-footer{line-height:1.6}
  #page-home .mission-room{margin-top:18px}
 }
+/* folio.exam navigation hotfix — restore mobile controls hidden by a later global rule */
+@media(max-width:620px){
+  #bottomNav.bottomnav{
+    display:grid !important;
+    grid-template-columns:repeat(5,minmax(0,1fr));
+    position:fixed;
+    left:0;right:0;bottom:0;
+    z-index:120;
+    visibility:visible;
+    opacity:1;
+    pointer-events:auto;
+    padding-bottom:calc(6px + env(safe-area-inset-bottom));
+    background:rgba(255,255,255,.98);
+  }
+  #bottomNav.bottomnav button{
+    display:flex;
+    min-width:0;
+    min-height:50px;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    pointer-events:auto;
+    touch-action:manipulation;
+  }
+  #mobileMoreBackdrop{z-index:129}
+  #mobileMorePanel{z-index:130;pointer-events:none}
+  #mobileMorePanel.open{pointer-events:auto}
+  #mobileMorePanel button[data-page]{touch-action:manipulation}
+}
+#sideNav button[data-page],#bottomNav button[data-page],
+.mobile-more-grid button[data-page],.home-quick-grid button[data-page]{
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+}
 /* iPhone Safari: prevent native date control from exceeding the hero card */
 @media(max-width:760px){
   .home-hero,.home-hero *{min-width:0}
