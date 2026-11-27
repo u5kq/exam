@@ -347,6 +347,31 @@ button:focus-visible,a:focus-visible{outline:3px solid #a8a0f3!important;outline
  #mobileMoreBackdrop{z-index:2147482000}
  #mobileMorePanel{z-index:2147482500}
 }
+/* Mobile controls are mounted directly under body to avoid ancestor stacking contexts. */
+@media(max-width:760px){
+ body>#bottomNav.bottomnav{
+  display:grid !important;grid-template-columns:repeat(5,minmax(0,1fr)) !important;
+  position:fixed !important;left:0 !important;right:0 !important;bottom:0 !important;
+  width:100% !important;height:auto !important;min-height:62px;
+  z-index:2147483647 !important;isolation:isolate;
+  visibility:visible !important;opacity:1 !important;pointer-events:auto !important;
+  padding:5px 8px calc(5px + env(safe-area-inset-bottom)) !important;
+  background:rgba(255,255,255,.98) !important;
+  transform:none !important;filter:none !important;
+ }
+ body>#bottomNav.bottomnav button{
+  display:flex !important;position:relative !important;z-index:1 !important;
+  min-width:0 !important;min-height:50px !important;width:100%;
+  align-items:center;justify-content:center;flex-direction:column;
+  pointer-events:auto !important;touch-action:manipulation;
+ }
+ body>#mobileMoreBackdrop{position:fixed;inset:0;z-index:2147483000 !important}
+ body>#mobileMorePanel{position:fixed;z-index:2147483001 !important;pointer-events:none}
+ body>#mobileMorePanel.open{pointer-events:auto}
+ #page-home .countdown-setting{position:relative;z-index:5}
+ #page-home #examTargetDate{position:relative;z-index:6;pointer-events:auto !important;touch-action:manipulation}
+ #page-home .home-hero:after{pointer-events:none}
+}
 /* iPhone Safari: prevent native date control from exceeding the hero card */
 @media(max-width:760px){
   .home-hero,.home-hero *{min-width:0}
@@ -447,20 +472,37 @@ if(komabaSchool&&!events.some(e=>e.date==='2026-12-05'&&e.schoolName==='駒場�
 function showPage(name){const target=document.getElementById('page-'+name);if(!target){console.warn('folio.exam: unknown page',name);return false}document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x===target));document.querySelectorAll('#sideNav [data-page],#bottomNav [data-page]').forEach(x=>x.classList.toggle('active',x.dataset.page===name));closeMobileMore();try{window.scrollTo(0,0)}catch(error){}if(name==='analysis')renderAnalysis();if(name==='admission')renderAdmissionInputs();if(name==='schedule'){renderEventSchoolOptions();renderEvents()}return true}
 function toggleMobileMore(){const panel=document.getElementById('mobileMorePanel'),backdrop=document.getElementById('mobileMoreBackdrop');if(panel)panel.classList.toggle('open');if(backdrop)backdrop.classList.toggle('open')}
 function closeMobileMore(){const panel=document.getElementById('mobileMorePanel'),backdrop=document.getElementById('mobileMoreBackdrop');if(panel)panel.classList.remove('open');if(backdrop)backdrop.classList.remove('open')}
-/* Mobile navigation: bind directly to the navigation element (iOS Safari-safe). */
-(function bindBottomNavigation(){
+/* Stable mobile controls: move fixed UI to body and support iOS touch + click. */
+(function bindMobileControls(){
  const nav=document.getElementById('bottomNav');
- if(!nav||nav.dataset.bound==='1')return;
- nav.dataset.bound='1';
- nav.addEventListener('click',function(event){
-  const button=event.target&&event.target.closest?event.target.closest('button[data-page]'):null;
-  if(!button||!nav.contains(button))return;
-  event.preventDefault();
-  event.stopPropagation();
-  showPage(button.dataset.page);
- },false);
- const more=document.getElementById('mobileMoreButton');
- if(more){more.addEventListener('click',function(event){event.preventDefault();event.stopPropagation();toggleMobileMore()},false);more.removeAttribute('onclick')}
+ const panel=document.getElementById('mobileMorePanel');
+ const backdrop=document.getElementById('mobileMoreBackdrop');
+ [nav,backdrop,panel].forEach(el=>{if(el&&el.parentElement!==document.body)document.body.appendChild(el)});
+ if(nav&&nav.dataset.bound!=='1'){
+  nav.dataset.bound='1';
+  const activate=function(event){
+   const button=event.target&&event.target.closest?event.target.closest('button'):null;
+   if(!button||!nav.contains(button))return;
+   if(button.id==='mobileMoreButton'){
+    event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();toggleMobileMore();return;
+   }
+   const page=button.getAttribute('data-page');
+   if(!page)return;
+   event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();
+   showPage(page);
+  };
+  nav.addEventListener('touchend',activate,{capture:true,passive:false});
+  nav.addEventListener('click',activate,true);
+  const more=document.getElementById('mobileMoreButton');
+  if(more)more.removeAttribute('onclick');
+ }
+ const date=document.getElementById('examTargetDate');
+ if(date&&date.dataset.bound!=='1'){
+  date.dataset.bound='1';
+  const persist=function(){try{setExamTargetDate(date.value)}catch(error){console.error('入試日程の保存に失敗しました',error);showExamToast('日付を保存できませんでした')}};
+  date.addEventListener('input',persist);
+  date.addEventListener('change',persist);
+ }
 })();
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function render(){renderSchools();renderPortfolio();renderMocks();renderGrades();renderEventSchoolOptions();renderEvents();renderTasks();renderApplications();renderCompare();renderPrep();renderPapers();renderDocuments();renderSimulatorSchools();renderSources();renderAdmissionInputs();updateHome();renderAnalysis()}
