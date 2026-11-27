@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#111827"><meta name="description" content="folio.exam — 高校入試を、情報と計画で前へ。">
+<meta name="theme-color" content="#fbfbfd"><meta name="description" content="folio.exam — 高校入試を、情報と計画で前へ。">
 <title>folio.exam — 高校入試サポート</title>
 <style>
 :root{--ink:#172033;--muted:#718096;--line:#e7ebf0;--paper:#f6f7f9;--white:#fff;--accent:#315efb;--soft:#edf1ff;--radius:18px;font-family:Inter,-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",Meiryo,sans-serif}
@@ -25,6 +25,84 @@
 @media(max-width:900px){.layout{grid-template-columns:205px minmax(0,1fr)}}
 @media(max-width:620px){.main{padding:20px 13px 105px}.sidebar{display:none}.panel{padding:16px}.hero-panel{padding:19px}.kpi{padding:9px}.kpi strong{font-size:18px}.bottomnav{scrollbar-width:none}.bottomnav::-webkit-scrollbar{display:none}.bottomnav button{flex-basis:68px;min-height:54px}.field{min-width:calc(50% - 8px)}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}}
+
+/* folio.exam — calm monochrome & pastel responsive system */
+:root{--ink:#252936;--muted:#777e8d;--line:#e9e9ef;--paper:#fafafd;--white:#fff;--accent:#7588bd;--soft:#eef1f9;--radius:18px}
+body{background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased}
+.topbar{background:rgba(255,255,255,.94);border-color:#ededf2;backdrop-filter:blur(16px)}
+.brand{letter-spacing:-.8px}.brand span{color:#9aa8cc}
+.layout{max-width:1540px;grid-template-columns:244px minmax(0,1fr)}
+.sidebar{background:#fff;border-color:#ededf2}
+.nav button{border-radius:12px;min-height:42px}.nav button.active{background:#f0f2f9;color:#566a9e}
+.main{max-width:1320px;padding-top:34px}
+.panel,.card{box-shadow:0 5px 22px rgba(39,46,68,.035);border-color:#ededf2}
+.panel{border-radius:20px}.card{border-radius:17px}
+.btn{background:#343a49;border-radius:12px;min-height:44px;padding:12px 17px}
+.btn.light{background:#fff;border-color:#e6e7ed}
+.field input,.field select,.field textarea{border:1px solid #e5e6ed;border-radius:12px;min-height:46px;padding:12px;background:#fff}
+.field textarea{width:100%;min-height:90px;resize:vertical}
+.notice{background:#f7f8fc;border-color:#eaecf3;color:#747b8b}
+.tag{background:#f1f2f6;color:#6e7481}
+.progress i,.bar i{background:#9aa8cc}
+.hero-panel{background:linear-gradient(130deg,#333b4d,#5b6681);border:0;color:white}
+.hero-panel .small{color:#e0e4ee}
+.bottomnav{display:none}
+.mobile-more-backdrop,.mobile-more-panel{display:none}
+@media(max-width:900px){.layout{grid-template-columns:205px minmax(0,1fr)}.main{padding-left:24px;padding-right:24px}}
+@media(max-width:620px){
+ body{background:#f8f8fb}
+ .topbar{height:58px;padding:0 17px}
+ .brand{font-size:20px}
+ .layout{display:block}
+ .sidebar{display:none}
+ .main{padding:19px 14px calc(96px + env(safe-area-inset-bottom));}
+ .eyebrow{font-size:10px;letter-spacing:1.25px}
+ .heading{align-items:flex-start;flex-direction:column;gap:11px;margin:5px 0 18px}
+ .heading h1{font-size:25px;line-height:1.35;letter-spacing:-.7px}
+ .sub{font-size:12px;line-height:1.65}
+ .heading .btn{width:100%}
+ .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ .two{grid-template-columns:1fr;gap:10px}
+ .card{padding:14px;border-radius:16px}
+ .panel{padding:16px;border-radius:17px;margin-bottom:11px}
+ .metric{font-size:24px;margin:7px 0 2px}
+ .metric-label{font-size:11px}
+ .section-title{font-size:14px;margin-bottom:12px}
+ .fieldrow{display:grid;grid-template-columns:1fr;gap:11px;margin:11px 0}
+ .field{min-width:0;width:100%}
+ .field input,.field select,.field textarea{width:100%;font-size:16px;min-height:48px}
+ .field label{font-size:12px}
+ .btn{width:100%;min-height:46px;font-size:13px}
+ .btn.light{width:auto}
+ .item{font-size:13px;padding:13px 0;gap:9px;align-items:flex-start}
+ .item .btn{width:auto;flex:0 0 auto}
+ .notice{font-size:12px;padding:13px;line-height:1.75}
+ .small{font-size:12px;line-height:1.7}
+ .tablewrap{border-radius:12px}
+ table{font-size:12px}
+ .hero-panel{padding:18px}
+ .kpi-grid{gap:7px}
+ .kpi{padding:10px 8px;border-radius:12px}
+ .kpi strong{font-size:19px}
+ .bottomnav{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;background:rgba(255,255,255,.96);border-top:1px solid #e9eaf0;padding:7px 8px calc(7px + env(safe-area-inset-bottom));backdrop-filter:blur(18px);box-shadow:0 -5px 22px rgba(35,41,58,.05)}
+ .bottomnav button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-width:0;min-height:49px;border:0;border-radius:13px;background:transparent;color:#858b99;font-size:10px;font-weight:650;padding:5px 2px}
+ .bottomnav button b{display:block;font-size:19px;line-height:1.1;margin:0;font-weight:600}
+ .bottomnav button span{white-space:nowrap}
+ .bottomnav button.active{color:#536894;background:#f0f2f8;font-weight:800}
+ .mobile-more-backdrop{display:block;position:fixed;inset:0;background:rgba(31,36,49,.2);z-index:38;opacity:0;pointer-events:none;transition:opacity .2s}
+ .mobile-more-backdrop.open{opacity:1;pointer-events:auto}
+ .mobile-more-panel{display:block;position:fixed;left:12px;right:12px;bottom:calc(72px + env(safe-area-inset-bottom));z-index:39;background:#fff;border:1px solid #ececf2;border-radius:20px;padding:17px;box-shadow:0 12px 45px rgba(30,36,54,.16);transform:translateY(12px);opacity:0;pointer-events:none;transition:transform .2s,opacity .2s}
+ .mobile-more-panel.open{transform:translateY(0);opacity:1;pointer-events:auto}
+ .mobile-more-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px;font-size:14px}
+ .mobile-more-head button{border:0;background:#f3f4f8;border-radius:50%;width:32px;height:32px;font-size:20px;color:#555}
+ .mobile-more-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+ .mobile-more-grid button{min-height:68px;border:1px solid #eeeef3;border-radius:13px;background:#fafafd;color:#555e70;font-size:11px;padding:9px 4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+ .mobile-more-grid button b{font-size:18px;font-weight:600;color:#7788b4}
+ .mobile-more-grid button:active{background:#eef1f8}
+ .source-row{grid-template-columns:minmax(0,1fr) auto}
+}
+@media(min-width:621px){.mobile-more-panel,.mobile-more-backdrop{display:none!important}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body><div class="app">
@@ -79,14 +157,16 @@
 <section class="page" id="page-papers"><div class="eyebrow">PAST PAPER TRACKER</div><div class="heading"><div><h1>過去問・演習記録</h1><div class="sub">年度・教科・単元ごとの得点と時間を記録。</div></div></div><div class="panel"><h2 class="section-title">演習結果を追加</h2><div class="fieldrow"><div class="field"><label>学校・模試</label><input id="paperSource" placeholder="例：県立高校入試"></div><div class="field"><label>年度</label><input id="paperYear" type="number" min="2000" max="2100" placeholder="2026"></div><div class="field"><label>教科</label><select id="paperSubject"><option>国語</option><option>数学</option><option>英語</option><option>理科</option><option>社会</option></select></div></div><div class="fieldrow"><div class="field"><label>得点</label><input id="paperScore" type="number" min="0" placeholder="得点"></div><div class="field"><label>満点</label><input id="paperMax" type="number" min="1" value="100"></div><div class="field"><label>所要時間（分）</label><input id="paperMinutes" type="number" min="1" placeholder="50"></div></div><div class="fieldrow"><div class="field"><label>単元・大問・課題</label><input id="paperUnit" placeholder="例：関数・大問2"></div><div class="field"><label>間違いの原因</label><select id="paperCause"><option>知識不足</option><option>計算・読み取りミス</option><option>時間不足</option><option>解法が思いつかなかった</option><option>その他</option></select></div></div><button class="btn" onclick="addPaper()">演習を記録</button></div><div class="panel"><h2 class="section-title">演習履歴</h2><div id="paperRows" class="list"></div></div></section>
 <section class="page" id="page-documents"><div class="eyebrow">DOCUMENT CHECKLIST</div><div class="heading"><div><h1>書類・準備チェック</h1><div class="sub">提出物や確認事項の抜け漏れを防ぐ。</div></div></div><div class="panel"><h2 class="section-title">チェック項目を追加</h2><div class="fieldrow"><div class="field"><label>項目名</label><input id="docName" placeholder="例：募集要項の確認"></div><div class="field"><label>対象校</label><input id="docSchool" placeholder="学校名"></div><div class="field"><label>期限</label><input id="docDate" type="date"></div></div><button class="btn" onclick="addDocument()">項目を追加</button></div><div class="panel"><h2 class="section-title">準備状況</h2><div id="documentRows" class="list"></div></div></section>
 </main></div>
-<nav class="bottomnav" id="bottomNav"><button class="active" data-page="home"><b>▦</b>ホーム</button><button data-page="schools"><b>⌂</b>高校</button><button data-page="admission"><b>∑</b>入試計算</button><button data-page="grades"><b>▤</b>内申</button><button data-page="mocks"><b>◫</b>模試</button><button data-page="analysis"><b>⌁</b>分析</button><button data-page="schedule"><b>▦</b>予定</button><button data-page="compare"><b>⇄</b>比較</button><button data-page="simulator"><b>▣</b>出願練習</button><button data-page="interview"><b>✎</b>面接</button><button data-page="papers"><b>▤</b>過去問</button><button data-page="documents"><b>☑</b>書類</button><button data-page="tasks"><b>✓</b>タスク</button><button data-page="applications"><b>▣</b>進捗</button><button data-page="data"><b>⚙</b>データ</button><button data-page="sources"><b>◎</b>出典</button></nav>
+<div class="mobile-more-backdrop" id="mobileMoreBackdrop" onclick="closeMobileMore()"></div><section class="mobile-more-panel" id="mobileMorePanel" aria-label="その他のメニュー"><div class="mobile-more-head"><strong>すべての機能</strong><button type="button" onclick="closeMobileMore()" aria-label="閉じる">×</button></div><div class="mobile-more-grid"><button data-page="analysis"><b>⌁</b>学力分析</button><button data-page="schedule"><b>▦</b>受験予定</button><button data-page="compare"><b>⇄</b>学校比較</button><button data-page="applications"><b>▣</b>出願管理</button><button data-page="simulator"><b>▣</b>出願練習</button><button data-page="interview"><b>✎</b>面接・作文</button><button data-page="papers"><b>▤</b>過去問分析</button><button data-page="documents"><b>☑</b>書類チェック</button><button data-page="tasks"><b>✓</b>学習タスク</button><button data-page="sources"><b>◎</b>公式情報</button><button data-page="data"><b>⚙</b>データ管理</button></div></section><nav class="bottomnav" id="bottomNav"><button class="active" data-page="home"><b>⌂</b><span>ホーム</span></button><button data-page="schools"><b>▤</b><span>高校</span></button><button data-page="admission"><b>∑</b><span>入試計算</span></button><button data-page="grades"><b>◫</b><span>内申</span></button><button type="button" id="mobileMoreButton" onclick="toggleMobileMore()"><b>＋</b><span>その他</span></button></nav>
 </div>
 <script>
 const subjects=['国語','数学','英語','理科','社会'],allSubjects=[...subjects,'音楽','美術','保健体育','技術・家庭'];
 const load=(k,d)=>{try{return JSON.parse(localStorage.getItem('folioExam_'+k))??d}catch{return d}};
 const save=(k,v)=>localStorage.setItem('folioExam_'+k,JSON.stringify(v));
 let schools=load('schools',[]),mocks=load('mocks',[]),grades=load('grades',{}),events=load('events',[]),tasks=load('tasks',[]),applications=load('applications',[]),compareIds=load('compareIds',[]),preps=load('preps',[]),papers=load('papers',[]),documents=load('documents',[]),sources=load('sources',[]);
-function showPage(name){document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id==='page-'+name));document.querySelectorAll('[data-page]').forEach(x=>x.classList.toggle('active',x.dataset.page===name));window.scrollTo({top:0,behavior:'smooth'});if(name==='analysis')renderAnalysis();if(name==='admission')renderAdmissionInputs()}
+function showPage(name){document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id==='page-'+name));document.querySelectorAll('#sideNav [data-page],#bottomNav [data-page]').forEach(x=>x.classList.toggle('active',x.dataset.page===name));closeMobileMore();window.scrollTo({top:0,behavior:'smooth'});if(name==='analysis')renderAnalysis();if(name==='admission')renderAdmissionInputs()}
+function toggleMobileMore(){document.getElementById('mobileMorePanel').classList.toggle('open');document.getElementById('mobileMoreBackdrop').classList.toggle('open')}
+function closeMobileMore(){document.getElementById('mobileMorePanel').classList.remove('open');document.getElementById('mobileMoreBackdrop').classList.remove('open')}
 document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function render(){renderSchools();renderMocks();renderGrades();renderEvents();renderTasks();renderApplications();renderCompare();renderPrep();renderPapers();renderDocuments();renderSimulatorSchools();renderSources();renderAdmissionInputs();updateHome();renderAnalysis()}
