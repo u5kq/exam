@@ -409,7 +409,7 @@ button:focus-visible,a:focus-visible{outline:3px solid #a8a0f3!important;outline
 <article class="correspondence-campus-card"><div class="campus-card-tag">通信制高校の学習センター</div><h3>鹿島学園高等学校 通信制 川崎キャンパス</h3><p>〒210-0002 神奈川県川崎市川崎区榎町1-1 川崎センタービル4階</p><p>JR川崎駅・京急川崎駅から徒歩約13分。週1日・週2〜5日などの学習スタイルを案内。</p><a href="https://kg-school.net/gakuen/campus/kawasaki" target="_blank" rel="noopener">学校公式キャンパス情報 ↗</a></article>
 <article class="correspondence-campus-card"><div class="campus-card-tag">通信制高校の学習センター</div><h3>鹿島学園高等学校 通信制 溝の口キャンパス</h3><p>〒213-0011 神奈川県川崎市高津区久本1-7-13 3階</p><p>東急溝の口駅から徒歩約5分、JR武蔵溝ノ口駅から徒歩約4分。自宅学習制も案内。</p><a href="https://kg-school.net/gakuen/campus/mizonokuchi" target="_blank" rel="noopener">学校公式キャンパス情報 ↗</a></article>
 </div><p class="tiny-note">※掲載は2026年11月28日に学校公式サイトで所在地・キャンパス情報を確認できた施設です。キャンパスで実施する授業・スクーリングの範囲、募集対象、費用、入学条件は各校の最新募集要項で確認してください。サポート校・提携施設は、在籍する通信制高校の卒業資格を授与する本校とは別です。</p></div>
-<div class="panel club-finder-panel"><div class="eyebrow">CLUB ACTIVITY FINDER / KAWASAKI</div><h2 class="section-title">部活動から高校を探す</h2><p class="small">「吹奏楽」「サッカー」「美術」など、気になる部活動名で登録高校全体を横断検索できます。運動部・文化部を分け、学校ごとの部活動を見やすいタグ形式で表示します。情報未確認の学校は検索結果に出ない場合があります。</p><div class="club-finder-controls"><div class="field"><label for="clubFinderQuery">探したい部活動</label><input id="clubFinderQuery" type="search" placeholder="例：吹奏楽、ダンス、科学" oninput="renderClubFinder()"></div><div class="field"><label for="clubFinderType">部活動の種類</label><select id="clubFinderType" onchange="renderClubFinder()"><option value="all">運動部・文化部すべて</option><option value="sports">運動部</option><option value="culture">文化部</option></select></div></div><div class="club-finder-summary" id="clubFinderSummary">川崎市内の掲載校から検索できます。</div><div id="clubFinderResults" class="club-finder-results"></div><p class="school-research-note">一覧に出ないことは「その部が存在しない」という意味ではありません。未確認・休部・募集停止・中高合同などは学校ごとの詳細ページと最新の公式案内で確認してください。</p></div>
+<div class="panel club-finder-panel"><div class="eyebrow">CLUB ACTIVITY FINDER / KAWASAKI</div><h2 class="section-title">部活動から高校を探す</h2><p class="small">高校ディレクトリ上部の共通検索欄に「吹奏楽」「サッカー」「美術」などを入力すると、学校・通信制キャンパス・部活動をまとめて検索できます。運動部・文化部の表示切替だけをこの欄で行います。情報未確認の学校は検索結果に出ない場合があります。</p><div class="club-finder-controls"><div class="field"><label for="clubFinderType">部活動の種類（共通検索欄の検索結果を絞り込み）</label><select id="clubFinderType" onchange="renderClubFinder()"><option value="all">運動部・文化部すべて</option><option value="sports">運動部</option><option value="culture">文化部</option></select></div></div><div class="club-finder-summary" id="clubFinderSummary">川崎市内の掲載校から検索できます。</div><div id="clubFinderResults" class="club-finder-results"></div><p class="school-research-note">一覧に出ないことは「その部が存在しない」という意味ではありません。未確認・休部・募集停止・中高合同などは学校ごとの詳細ページと最新の公式案内で確認してください。</p></div>
 </section>
 <section class="page" id="page-school-detail"><div class="school-detail-back"><button class="btn light" type="button" onclick="showPage('schools')">← 高校一覧へ戻る</button></div><div id="schoolDetailContent"></div></section>
 <section class="page" id="page-grades"><div class="eyebrow">ACADEMIC RECORD</div><div class="heading"><div><h1>内申・成績管理</h1><div class="sub">9教科の評定を記録。地域・年度ごとの計算方式は別途確認が必要です。</div></div></div>
@@ -543,9 +543,10 @@ function getSchoolClubLists(school){
 function splitClubEntries(value){return String(value||'').split(/[、,，;；／・]+|\n/).map(x=>x.trim()).filter(Boolean).filter(x=>x.length<90)}
 function renderClubFinder(){
  const root=document.getElementById('clubFinderResults');if(!root)return;
- const query=(document.getElementById('clubFinderQuery')?.value||'').trim().toLowerCase();
+ const query=(document.getElementById('schoolSearch')?.value||'').trim().toLowerCase();
+ const schoolType=document.getElementById('schoolFilter')?.value||'';
  const type=document.getElementById('clubFinderType')?.value||'all';
- const allSchools=schools.filter(s=>schoolKey(s.name)!=='麻生総合');
+ const allSchools=schools.filter(s=>schoolKey(s.name)!=='麻生総合'&&(!schoolType||s.type===schoolType));
  const results=[];
  allSchools.forEach(s=>{
   const lists=getSchoolClubLists(s),categories=[];
@@ -553,14 +554,16 @@ function renderClubFinder(){
    if(type!=='all'&&type!==key)return;
    const raw=lists[key];if(!raw)return;
    const entries=splitClubEntries(raw);
+   const schoolText=(s.name+' '+(s.place||'')+' '+(s.address||'')).toLowerCase();
    const matches=query?entries.filter(x=>x.toLowerCase().includes(query)):entries;
-   if((query&&matches.length)||(!query&&raw.trim()))categories.push({label,entries:matches.length?matches:[raw],raw});
+   const schoolMatches=!!query&&schoolText.includes(query);
+   if((query&&(matches.length||schoolMatches))||(!query&&raw.trim()))categories.push({label,entries:matches.length?matches:entries,raw});
   });
   if(categories.length)results.push({school:s,categories});
  });
  const summary=document.getElementById('clubFinderSummary');
- if(summary)summary.textContent=query?'「'+query+'」に該当する部活動情報：'+results.length+'校 ／ 部活動情報の掲載校 '+allSchools.filter(s=>{const l=getSchoolClubLists(s);return !!(l.sports||l.culture)}).length+'校':'部活動情報を掲載している高校：'+results.length+'校 ／ 対象：登録高校全体';
- root.innerHTML=results.length?results.map(x=>'<article class="club-finder-card"><div class="club-finder-card-head"><strong>'+esc(x.school.name)+'</strong><span class="club-finder-place">'+esc(x.school.place||x.school.address||'所在地未確認')+'</span><button type="button" class="btn light" onclick="openSchoolDetail('+x.school.id+')">学校詳細を見る ↗</button></div>'+x.categories.map(c=>'<div class="club-finder-category"><span>'+c.label+'</span><div class="club-finder-tags">'+c.entries.map(entry=>'<span class="club-finder-tag">'+esc(entry)+'</span>').join('')+'</div></div>').join('')+'</article>').join(''):'<div class="empty">一致する部活動情報は見つかりませんでした。未調査の高校や表記違いもあるため、学校別の詳細ページ・公式サイトも確認してください。</div>';
+ if(summary)summary.textContent=query?'共通検索「'+query+'」に関連する部活動情報：'+results.length+'校 ／ 部活動情報の掲載校 '+allSchools.filter(s=>{const l=getSchoolClubLists(s);return !!(l.sports||l.culture)}).length+'校':'部活動情報を掲載している高校：'+results.length+'校 ／ 対象：登録高校全体';
+ root.innerHTML=results.length?results.map(x=>'<article class="club-finder-card"><div class="club-finder-card-head"><strong>'+esc(x.school.name)+'</strong><span class="club-finder-place">'+esc(x.school.place||x.school.address||'所在地未確認')+'</span><button type="button" class="btn light" onclick="openSchoolDetail('+x.school.id+')">学校詳細を見る ↗</button></div>'+x.categories.map(c=>'<div class="club-finder-category"><span>'+c.label+'</span><div class="club-finder-tags">'+c.entries.map(entry=>'<span class="club-finder-tag">'+esc(entry)+'</span>').join('')+'</div></div>').join('')+'</article>').join(''):'<div class="empty">共通検索に一致する部活動情報は見つかりませんでした。学校名・地域・部活動名を変えて検索してください。未調査の高校は学校別詳細ページ・公式サイトも確認してください。</div>';
 }
 let activeSchoolDetailId=null;let schoolDetails=load('schoolDetails',{});
 function openSchoolDetail(id){activeSchoolDetailId=id;renderSchoolDetail();showPage('school-detail')}
@@ -2139,6 +2142,18 @@ function toggleDocument(id,on){const d=documents.find(x=>x.id===id);if(d){d.done
 function removeDocument(id){if(confirm('チェック項目を削除しますか？')){documents=documents.filter(x=>x.id!==id);save('documents',documents);renderDocuments()}}
 
 render();
+function arrangeUnifiedSchoolSearch(){
+ const directory=document.querySelector('.school-directory-panel');
+ const filters=directory?.querySelector('.school-filter-grid');
+ const schoolRows=document.getElementById('schoolRows');
+ const campus=document.getElementById('correspondenceCampusDirectory');
+ const clubs=document.querySelector('.club-finder-panel');
+ if(directory&&filters&&schoolRows){
+  if(campus)directory.insertBefore(campus,schoolRows);
+  if(clubs)directory.insertBefore(clubs,schoolRows);
+ }
+}
+arrangeUnifiedSchoolSearch();
 
 let focusDuration=25,focusRemaining=1500,focusInterval=null,focusRunning=false;
 let focusSessions=Number(localStorage.getItem('folioExam_focusSessions_'+new Date().toISOString().slice(0,10))||0);
