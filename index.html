@@ -495,6 +495,15 @@ function closeMobileMore(){const panel=document.getElementById('mobileMorePanel'
   const more=document.getElementById('mobileMoreButton');
   if(more){more.onclick=function(){toggleMobileMore()};more.setAttribute('type','button')}
  }
+ /* Bind every destination inside the mobile "More" drawer.
+    The drawer is moved under body above, so bind after it is mounted. */
+ if(panel){
+  panel.querySelectorAll('button[data-page]').forEach(button=>{
+   const page=button.getAttribute('data-page');
+   button.type='button';
+   button.onclick=function(){showPage(page)};
+  });
+ }
  const date=document.getElementById('examTargetDate');
  if(date){
   date.onchange=function(){setExamTargetDate(date.value)};
