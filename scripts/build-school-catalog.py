@@ -116,7 +116,7 @@ def main() -> None:
         "bySchoolKindCode": {k: sum(1 for r in rows if r[5] == k) for k in sorted({r[5] for r in rows})},
         "byCampusType": {k: sum(1 for r in rows if r[7] == k) for k in ("本校", "分校")},
         "exactNameAddressKindDuplicateRows": exact_identity_duplicates,
-        "note": "D1には全日制・定時制・通信制の各課程が含まれます。学校コード一覧だけでは課程別の学校名を重複なく切り分けられないため、1学校コードにつき1件で登録し、課程情報は別資料で確認します。E1は特別支援学校（高等部を含む学校）、D2は中等教育学校です。廃止校は除外しています。",
+        "note": "D1には全日制・定時制・通信制の各課程が含まれます。学校コード一覧だけでは課程別の学校名を重複なく切り分けられないため、1学校コードにつき1件で登録し、課程情報は別資料で確認します。E1は特別支援学校（学部構成はこの一覧では未確認）、D2は中等教育学校です。廃止校は除外しています。",
     }
     META.write_text(json.dumps(meta, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(meta, ensure_ascii=False))
