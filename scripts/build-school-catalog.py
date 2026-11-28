@@ -107,12 +107,30 @@ def main() -> None:
         f"window.FOLIO_EXTRA_SCHOOL_CATALOG_SOURCE = {json.dumps({'label': SOURCE_LABEL, 'url': SOURCE_URL, 'published': '2026-05-29', 'asOf': '2026-05-01'}, ensure_ascii=False)};\n"
     )
     OUT.write_text(js, encoding="utf-8")
+    prefectures = [
+        "北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県", "茨城県",
+        "栃木県", "群馬県", "埼玉県", "千葉県", "東京都", "神奈川県", "新潟県", "富山県",
+        "石川県", "福井県", "山梨県", "長野県", "岐阜県", "静岡県", "愛知県", "三重県",
+        "滋賀県", "京都府", "大阪府", "兵庫県", "奈良県", "和歌山県", "鳥取県", "島根県",
+        "岡山県", "広島県", "山口県", "徳島県", "香川県", "愛媛県", "高知県", "福岡県",
+        "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県",
+    ]
+    by_prefecture = {p: 0 for p in prefectures}
+    for record in rows:
+        pref = next((p for p in prefectures if record[4].startswith(p)), None)
+        if pref is None:
+            raise RuntimeError(f"Address does not start with a Japanese prefecture: {record[3]}")
+        by_prefecture[pref] += 1
+
     meta = {
         "source": SOURCE_LABEL,
         "sourceUrl": SOURCE_URL,
         "published": "2026-05-29",
         "asOf": "2026-05-01",
         "totalUniqueSchoolCodes": len(rows),
+        "prefectureCount": len([p for p, n in by_prefecture.items() if n > 0]),
+        "byPrefecture": {p: n for p, n in by_prefecture.items() if n > 0},
+        "bySchoolSubKind": {k: sum(1 for r in rows if r[5] + ":" + r[8] == k) for k in sorted({r[5] + ":" + r[8] for r in rows})},
         "bySchoolKindCode": {k: sum(1 for r in rows if r[5] == k) for k in sorted({r[5] for r in rows})},
         "byCampusType": {k: sum(1 for r in rows if r[7] == k) for k in ("本校", "分校")},
         "exactNameAddressKindDuplicateRows": exact_identity_duplicates,
