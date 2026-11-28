@@ -1839,6 +1839,120 @@ const admissionResearchByCode={
   ["学科別の比率・募集数","生活科学科・福祉科・定時制昼間部の学校別募集人数・選考比率は最新の市立募集要綱・県の学校別選考基準で確認。未確認の数値は掲載しない。"]
  ],sources:[["川崎市・令和9年度市立高校入試","https://www.city.kawasaki.jp/880/page/0000176313.html"],["川崎市・市立高校一覧","https://kawasaki-edu.jp/index.cfm/9,0,62,html"]]}
 };
+/* 2027 public-school selection ratios: official Kanagawa Prefecture criteria PDF.
+   Ratios are listed as first selection (school record : academic test : special test),
+   then second selection (academic test : attitude evaluation : special test). */
+const public2027Selection={
+ "新城":["普通科","5:5:0","8:2:0","学力検査5教科。特色検査なし。"],
+ "住吉":["普通科","4:6:0","8:2:0","学力検査5教科。特色検査なし。"],
+ "川崎北":["普通科","5:5:0","8:2:0","学力検査5教科。特色検査なし。"],
+ "多摩":["普通科","4:6:2","8:2:2","学力検査5教科。特色検査は自己表現。"],
+ "生田":["普通科","5:5:0","8:2:0","学力検査5教科。特色検査なし。"],
+ "百合丘":["普通科","5:5:0","8:2:0","学力検査5教科。特色検査なし。"],
+ "生田東":["普通科","4:6:0","8:2:0","学力検査5教科。特色検査なし。"],
+ "菅":["普通科","5:5:0","8:2:0","学力検査5教科。特色検査なし。"],
+ "麻生":["普通科","5:5:0","8:2:0","学力検査5教科。特色検査なし。"],
+ "川崎":["単位制普通科","5:5:0","8:2:0","学力検査5教科。特色検査なし。"],
+ "大師":["単位制普通科","5:5:0","8:2:0","学力検査5教科。第2次選考では調査書の音楽・美術・保健体育・技術家庭から最も高い1教科を2倍に重点化。"],
+ "川崎工科":["総合技術科","6:4:0","7:3:0","学力検査5教科。特色検査なし。"],
+ "向の岡工業":["機械科・建設科・電気科","4:6:0","8:2:0","各科とも学力検査5教科。特色検査なし。定時制の募集停止とは別に、ここは全日制の選考基準。"]
+};
+Object.entries(public2027Selection).forEach(([key,v])=>{
+ const [course,first,second,note]=v;
+ admissionResearch[key]={
+  year:"令和9年度（2027年度）",
+  status:"神奈川県教育委員会・令和9年度選考基準PDF",
+  items:[
+   ["課程・学科",course+"。"],
+   ["学力検査",note],
+   ["第1次選考の比率","調査書（評定）：学力検査：特色検査＝"+first+"。"],
+   ["第2次選考の比率","学力検査：主体的に学習に取り組む態度＝"+second+"。"],
+   ["基準の読み方","比率は選考資料の重み付けであり、合格最低点・必要内申点を意味しない。学力検査得点や評定の換算方法は県の募集案内2を参照。"],
+   ["合格可能性の注意","この比率だけでは合格ラインは算出できない。募集人員、志願者数、得点分布、調査書の換算、重点化の有無を合わせて分析する。"]
+  ],
+  tables:[{title:"令和9年度 学校別選考比率",columns:["選考","評定","学力検査","特色検査／態度"],rows:[["第1次",first.split(":")[0],first.split(":")[1],first.split(":")[2]],["第2次","—",second.split(":")[0],second.split(":")[1]+"（特色 "+second.split(":")[2]+"）"]]}],
+  sources:[["神奈川県・令和9年度選考基準PDF","https://www.pref.kanagawa.jp/documents/63367/bosyuannai2_senkokijun.pdf"],["神奈川県・令和9年度募集案内","https://www.pref.kanagawa.jp/docs/dc4/nyusen/nyusen/bosyuannai.html"]]
+ };
+});
+/* Municipal school selection standards, course-specific where the official PDF distinguishes them. */
+admissionResearchByCode["D114213020055"]={
+ year:"令和9年度（2027年度）",status:"神奈川県教育委員会・令和9年度選考基準PDF",
+ items:[
+  ["対象課程・学科","川崎市立高津高校・全日制普通科。"],
+  ["学力検査","国語・数学・英語・理科・社会の5教科。"],
+  ["第1次選考","調査書（評定）：学力検査＝5：5。特色検査なし。"],
+  ["第2次選考","学力検査：主体的に学習に取り組む態度＝6：4。"],
+  ["比率の意味","選考資料の重み付け。5:5や6:4は必要内申点・合格点を直接表す数値ではない。"]
+ ],
+ tables:[{title:"令和9年度 高津高校・選考比率",columns:["選考","評定","学力検査","特色検査／態度"],rows:[["第1次","5","5","なし"],["第2次","—","6","態度4"]]}],
+ sources:[["神奈川県・令和9年度選考基準PDF","https://www.pref.kanagawa.jp/documents/63367/bosyuannai2_senkokijun.pdf"]]
+};
+admissionResearchByCode["D114213020046"]={
+ year:"令和9年度（2027年度）",status:"神奈川県教育委員会・令和9年度選考基準PDF",
+ items:[
+  ["普通科","学力検査5教科。第1次は評定：学力＝4：6、面接（特色検査）比率2。第2次は学力：態度＝8：2、面接比率3。"],
+  ["国際科","学力検査5教科。第1次は評定：学力＝4：6、面接比率2。第2次は学力：態度＝8：2、面接比率3。英語を調査書・学力検査で2倍に重点化。"],
+  ["スポーツ科","学力検査5教科と実技検査。第1次は評定：学力＝5：5、実技比率5。第2次は学力：態度＝5：5、実技比率5。"],
+  ["注意","3学科で選考比率・特色検査が異なる。普通科の数値を国際科・スポーツ科に流用しない。"]
+ ],
+ tables:[{title:"令和9年度 橘高校・学科別選考比率",columns:["学科","第1次（評定:学力:特色）","第2次（学力:態度:特色）","重点化"],rows:[["普通科","4:6:面接2","8:2:面接3","なし"],["国際科","4:6:面接2","8:2:面接3","英語×2"],["スポーツ科","5:5:実技5","5:5:実技5","なし"]]}],
+ sources:[["神奈川県・令和9年度選考基準PDF","https://www.pref.kanagawa.jp/documents/63367/bosyuannai2_senkokijun.pdf"]]
+};
+admissionResearchByCode["D114213020028"]={
+ year:"令和9年度（2027年度）",status:"神奈川県教育委員会・令和9年度選考基準PDF",
+ items:[
+  ["普通科","学力検査5教科。第1次選考は評定：学力＝5：5。第2次選考は学力：態度＝5：5。特色検査なし。"],
+  ["ビジネス教養科","学力検査5教科。第1次選考は評定：学力＝5：5。第2次選考は学力：態度＝5：5。特色検査なし。"],
+  ["注意","両学科とも同じ比率だが、募集枠・学科内容・志願者層は別。比率は合格最低点を示すものではない。"]
+ ],
+ tables:[{title:"令和9年度 幸高校・学科別選考比率",columns:["学科","第1次（評定:学力）","第2次（学力:態度）","特色検査"],rows:[["普通科","5:5","5:5","なし"],["ビジネス教養科","5:5","5:5","なし"]]}],
+ sources:[["神奈川県・令和9年度選考基準PDF","https://www.pref.kanagawa.jp/documents/63367/bosyuannai2_senkokijun.pdf"]]
+};
+admissionResearchByCode["D114213020037"]={
+ year:"令和9年度（2027年度）",status:"神奈川県教育委員会・令和9年度選考基準PDF",
+ items:[
+  ["情報工学科","学力検査5教科。第1次5:5、第2次8:2。特色検査なし。"],
+  ["総合電気科","学力検査は英語・国語・数学の3教科。自己表現検査あり。第1次5:5:自己表現3、第2次8:2:自己表現5。"],
+  ["電子機械科","学力検査5教科。第1次5:5、第2次8:2。特色検査なし。"],
+  ["建設工学科","学力検査は英語・国語・数学の3教科。自己表現検査あり。第1次5:5:自己表現3、第2次8:2:自己表現5。"],
+  ["デザイン科","学力検査は英語・国語・数学の3教科と実技検査。第1次5:5:実技4、第2次8:2:実技5。調査書の美術を2倍に重点化。"],
+  ["科学科","学力検査5教科。第1次4:6、第2次8:2。学力検査の数学・理科を1.5倍に重点化。"],
+  ["注意","学科によって検査教科・特色検査・重点化が異なる。総合科学高校を一括した一つの選考比率で表さない。"]
+ ],
+ tables:[{title:"令和9年度 川崎総合科学・学科別選考基準",columns:["学科","学力検査","第1次比率","第2次比率","特色・重点化"],rows:[
+  ["情報工学","5教科","5:5","8:2","なし"],
+  ["総合電気","英・国・数","5:5","8:2","自己表現3／5"],
+  ["電子機械","5教科","5:5","8:2","なし"],
+  ["建設工学","英・国・数","5:5","8:2","自己表現3／5"],
+  ["デザイン","英・国・数","5:5","8:2","実技4／5・美術評定×2"],
+  ["科学","5教科","4:6","8:2","数学・理科の学力検査×1.5"]
+ ]}],
+ sources:[["神奈川県・令和9年度選考基準PDF","https://www.pref.kanagawa.jp/documents/63367/bosyuannai2_senkokijun.pdf"]]
+};
+admissionResearchByCode["D114213020019"]={
+ year:"令和9年度（2027年度）",status:"神奈川県教育委員会・令和9年度選考基準PDF",
+ items:[
+  ["高校からの募集","全日制普通科は附属中学校からの内部進学が基本。高校からの外部募集対象は生活科学科・福祉科。"],
+  ["生活科学科","学力検査5教科・面接。第1次は評定：学力＝6：4、面接比率5。第2次は学力：態度＝7：3、面接比率5。調査書の国語×1.5・技術家庭×2、学力検査の国語×2。"],
+  ["福祉科","学力検査5教科・面接。第1次は評定：学力＝6：4、面接比率5。第2次は学力：態度＝4：6、面接比率5。"],
+  ["定時制昼間部普通科","県公式要領では英語・数学・国語の学力検査と面接。学力検査300点＋面接100点、合計400点で選考。川崎市立川崎の定時制は定通分割選抜を実施しない。"],
+  ["注意","県立川崎高校とは別校。普通科内部進学、生活科学科・福祉科の外部募集、定時制昼間部を区別して確認する。"]
+ ],
+ tables:[{title:"令和9年度 市立川崎高校・学科別選考基準",columns:["学科・課程","第1次比率","第2次比率","特色・重点化"],rows:[
+  ["生活科学科","6:4:面接5","7:3:面接5","国語・技家・国語学力の重点化"],
+  ["福祉科","6:4:面接5","4:6:面接5","なし"],
+  ["定時制昼間部普通科","英数国＋面接","G300点＋M100点","合計400点"]
+ ]}],
+ sources:[["神奈川県・令和9年度選考基準PDF","https://www.pref.kanagawa.jp/documents/63367/bosyuannai2_senkokijun.pdf"],["川崎市・令和9年度市立高校入試","https://www.city.kawasaki.jp/880/page/0000176313.html"]]
+};
+/* Save the same verified 2027 ratios in each detailed school profile for easy comparison. */
+Object.entries(public2027Selection).forEach(([key,v])=>{
+ const rec=schoolResearch[key]||(schoolResearch[key]={items:[],links:[],note:""});
+ const title="2027年度 公立高校選考基準（公式）";
+ const body="第1次選考："+v[1]+"（評定：学力：特色）。第2次選考："+v[2]+"（学力：主体的態度：特色）。"+v[3]+" 比率は選考資料の重みで、合格最低点ではない。";
+ const i=rec.items.findIndex(x=>x[0]===title);if(i>=0)rec.items[i]=[title,body];else rec.items.push([title,body]);
+ rec.checkedAt="2026/11/28";
+});
 function renderSchoolDetail(){const el=document.getElementById('schoolDetailContent');if(!el)return;const school=schools.find(x=>x.id===activeSchoolDetailId);if(!school){el.innerHTML='<div class="empty">学校情報が見つかりません。</div>';return}const d=schoolDetails[String(school.id)]||{};const researchBase=schoolResearchByCode?.[school.schoolCode]||schoolResearch[schoolKey(school.name)];const clubOverride=schoolClubOverridesByCode[school.schoolCode];const research=clubOverride?({...researchBase,items:[...(researchBase?.items||[]).filter(x=>!String(x[0]||'').startsWith('部活動')), ...clubOverride.items],links:[...(researchBase?.links||[]),...clubOverride.links]}):researchBase;const p=research?.profile||{};const audit=schoolAuditFlags[schoolKey(school.name)];const auditHtml=audit?'<div class="notice"><strong>学校情報の状態：</strong>'+esc(audit.note)+' <a href="'+esc(audit.url)+'" target="_blank" rel="noopener noreferrer">公式確認資料 ↗</a><small>確認日：'+esc(audit.checkedAt)+'</small></div>':'';const v={postal:d.postal||p.postal||school.postal||'',address:d.address||p.address||school.address||school.place||'',phone:d.phone||p.phone||'',fax:d.fax||p.fax||'',gender:d.gender||p.gender||'',kind:d.kind||p.kind||school.type||'',deviation:d.deviation||p.deviationLabel||'',deviationSource:d.deviationSource||p.deviationSource||'',deviationUrl:d.deviationUrl||p.deviationUrl||'',access:d.access||p.access||'',official:d.official||p.official||school.url||'',map:d.map||p.map||''};const field=(label,key,placeholder)=>'<div class="field"><label>'+label+'</label><textarea id="sd_'+key+'" placeholder="'+placeholder+'">'+esc(d[key]||'')+'</textarea></div>';const facts=[['偏差値の目安',v.deviation,'chart-no-axes-column'],['学校種別',v.kind,'school'],['所在地',((v.postal?v.postal+' ':'')+v.address),'map-pin'],['アクセス',v.access,'train-front'],['電話番号',v.phone,'phone'],['男女区分',v.gender,'users'],['学校コード',school.schoolCode||'','fingerprint']];const filled=facts.filter(x=>x[1]).length;const profileHtml='<section class="school-detail-card school-overview"><div class="school-overview-head"><div><div class="eyebrow">AT A GLANCE</div><h2>学校の基本データ</h2></div><span class="school-data-count">'+filled+'/6 項目掲載</span></div><div class="school-fact-tiles">'+facts.map((x,i)=>'<article class="school-fact-tile '+(i===0?'school-fact-highlight':'')+'"><span class="school-fact-label">'+x[0]+'</span><strong>'+esc(x[1]||'情報未登録')+'</strong></article>').join('')+'</div><div class="school-profile-links">'+(v.official?'<a class="btn light" href="'+esc(v.official)+'" target="_blank" rel="noopener noreferrer">公式サイト ↗</a>':'')+'<a class="btn light" href="'+esc(v.map||('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(v.address||school.name)))+'" target="_blank" rel="noopener noreferrer">地図・経路 ↗</a>'+(v.deviationUrl?'<a class="btn light" href="'+esc(v.deviationUrl)+'" target="_blank" rel="noopener noreferrer">偏差値の出典 ↗</a>':'')+'</div><p class="school-research-note">偏差値は外部模試・進学情報サイト等の参考値です。年度・模試・コースで異なり、合格可能性を保証するものではありません。出典：'+esc(v.deviationSource||'未登録')+'</p></section>';const groups=[['学校概要',['基本','所在地','学校','男女','アクセス','住所','電話','募集人員']],['コース・教育',['コース','学科','教育','学習','ICT','理数','国際','探究','資格']],['入試・選抜',['入試','選抜','推薦','一般','併願','募集','内申','試験','日程','出願','合格']],['進路・学校生活',['進路','大学','行事','部活動','生活','説明会','自習','支援']],['費用・制度',['費用','学費','授業料','入学金','特待','奨学金','端末']]];const assigned=new Set();const sections=groups.map(g=>{const items=(research?.items||[]).filter(x=>g[1].some(k=>x[0].includes(k))&&!assigned.has(x));items.forEach(x=>assigned.add(x));return items.length?'<section class="school-topic-section"><div class="school-topic-heading"><span>'+g[0]+'</span><small>'+items.length+'項目</small></div><div class="school-topic-grid">'+items.map(x=>'<article class="school-topic-card"><h3>'+esc(x[0])+'</h3><p>'+esc(x[1])+'</p></article>').join('')+'</div></section>':''}).join('');const rest=(research?.items||[]).filter(x=>!assigned.has(x));const researchHtml=research?'<section class="school-detail-card school-research"><div class="school-research-head"><div><div class="eyebrow">RESEARCH FILE</div><h2>学校情報を詳しく見る</h2><p class="school-section-intro">学校ごとの教育内容・入試・進路などをテーマ別に整理しています。</p></div><span class="school-research-date">確認日 '+esc(research.checkedAt||'未設定')+'</span></div>'+(sections+(rest.length?'<section class="school-topic-section"><div class="school-topic-heading"><span>その他の情報</span><small>'+rest.length+'項目</small></div><div class="school-topic-grid">'+rest.map(x=>'<article class="school-topic-card"><h3>'+esc(x[0])+'</h3><p>'+esc(x[1])+'</p></article>').join('')+'</div></section>':''))+'<p class="school-research-note">'+esc(research.note||'掲載内容は公式資料で最新情報をご確認ください。')+'</p><div class="school-research-links">'+(research.links||[]).map(x=>'<a href="'+esc(x[1])+'" target="_blank" rel="noopener noreferrer">'+esc(x[0])+' ↗</a>').join('')+'</div></section>':'<section class="school-detail-card"><h2>調査情報</h2><p class="school-detail-empty">この高校の詳細調査情報は未登録です。</p></section>';const isKanagawaPublic=school.type==='公立'&&String(school.place||school.address||'').includes('神奈川県');
 const kanagawaGuideHtml=isKanagawaPublic?'<section class="school-detail-card kanagawa-student-guide"><div class="eyebrow">KANAGAWA / STUDENT GUIDE</div><h2>神奈川県公立高校の費用・部活動・教育方針</h2><p class="school-section-intro">2027年度入学生向けの県公式資料をもとにした共通情報です。金額は課程によって異なり、学校独自の費用は別途確認が必要です。</p><div class="school-topic-grid"><article class="school-topic-card"><h3>授業料・入学時費用（全日制）</h3><p><strong>授業料：年額118,800円</strong><br>受検料2,200円／入学料5,650円。2027年度入学生予定額として、県立・横浜市立・川崎市立・横須賀市立の全日制は同額です。就学支援金等が認定される場合、授業料負担は相殺されます。</p><a href="https://www.pref.kanagawa.jp/documents/63367/bosyuannai2_jukenryoutou.pdf" target="_blank" rel="noopener noreferrer">県公式：令和9年度募集案内・受検料等 ↗</a></article><article class="school-topic-card"><h3>部活動一覧・活動方針</h3><p>部活動の設置状況は学校・年度で変わります。県の高校別一覧や学校公式ページで部名を確認し、活動日・休養日・部費・部員数・大会実績は各部の最新案内で確認してください。</p><a href="https://www.pref.kanagawa.jp/docs/dc4/tokushoku/hsw/2025kagayake.html" target="_blank" rel="noopener noreferrer">県公式：公立高校ガイド・部活動一覧 ↗</a><br><a href="https://www.pref.kanagawa.jp/docs/cy3/gkt/bkd-shidou.html" target="_blank" rel="noopener noreferrer">県公式：部活動指導方針 ↗</a></article><article class="school-topic-card"><h3>教育目標・授業方針</h3><p>県立・市立それぞれの学校公式ページで、教育目標、スクール・ポリシー、学科・コース別カリキュラム、探究学習や進路指導を確認しましょう。学校ごとの内容を共通説明で代用せず、個別資料を優先します。</p><a href="https://www.pref.kanagawa.jp/docs/u5t/cnt/f531868/school_mission.html" target="_blank" rel="noopener noreferrer">県公式：県立高校のスクール・ミッション ↗</a></article><article class="school-topic-card"><h3>授業料以外に必要な費用</h3><p>教材・副教材、制服、体育着、端末、PTA・生徒会費、修学旅行積立などが別途必要です。年間総額や購入／貸与の別は、学校の入学案内・説明会で確認してください。定時制・通信制は金額体系が異なります。</p></article><article class="school-topic-card"><h3>学校比較チェック</h3><p>①初年度・2年目以降の総費用 ②希望部活の活動日と休養日 ③学科別の必修・選択科目 ④探究・ICT環境 ⑤補習・進路指導 ⑥通学時間を比較しましょう。</p></article></div><p class="school-research-note">金額は令和9年度入学生の予定額です。制度・金額は改定される場合があります。定時制・通信制、学校独自の諸費用、減免・支援制度は最新の募集案内と学校の事務室で確認してください。</p><div class="school-research-links"><a href="https://www.pref.kanagawa.jp/docs/dc4/koukouten/hsguidebook.html" target="_blank" rel="noopener noreferrer">神奈川県高校ガイドブック ↗</a><a href="https://www.pref.kanagawa.jp/kyouiku/ken-koukou.html" target="_blank" rel="noopener noreferrer">県立高校一覧・課程・学科 ↗</a></div></section>':'';const ar=admissionResearchByCode?.[school.schoolCode]||admissionResearch[schoolKey(school.name)];const admissionTablesHtml=(ar?.tables||[]).map(t=>'<div class="admission-table-wrap"><h3>'+esc(t.title)+'</h3><div class="admission-table-scroll"><table><thead><tr>'+t.columns.map(c=>'<th>'+esc(c)+'</th>').join('')+'</tr></thead><tbody>'+t.rows.map(row=>'<tr>'+row.map(cell=>'<td>'+esc(cell)+'</td>').join('')+'</tr>').join('')+'</tbody></table></div></div>').join('');const admissionHtml='<section class="school-detail-card"><div class="eyebrow">ADMISSION / 2027</div><h2>入試方式・推薦・併願基準</h2><p>'+(ar?'対象年度：'+esc(ar.year)+' ／ '+esc(ar.status):'年度別の学校公式基準は未確認です。')+'</p>'+(ar?'<div class="school-topic-grid">'+ar.items.map(x=>'<article class="school-topic-card"><h3>'+esc(x[0])+'</h3><p>'+esc(x[1])+'</p></article>').join('')+'</div>'+admissionTablesHtml+'<div class="school-research-links">'+ar.sources.map(x=>'<a href="'+esc(x[1])+'" target="_blank" rel="noopener noreferrer">'+esc(x[0])+' ↗</a>').join('')+'</div>':'<div class="notice">内申・欠席・加点の数値は推測で掲載しません。公立校は自治体の選考基準、私立校は当該年度の公式募集要項を確認して追加します。</div>')+'<details><summary>入試用語集（12語）</summary><div class="school-topic-grid">'+admissionGlossary.map(x=>'<article class="school-topic-card"><h3>'+esc(x[0])+'</h3><p>'+esc(x[1])+'</p></article>').join('')+'</div></details><p class="school-research-note">年度・コース・入試区分で条件は変わります。必ず最新要項と中学校の進路担当の先生に確認してください。</p></section>';const editKeys=[['郵便番号','postal','公式アクセスページで確認'],['正式住所','address','番地まで記録'],['電話番号','phone','学校代表番号'],['FAX','fax','公式資料で確認'],['学校種別・課程','kind','公立／私立、全日制など'],['共学・男女区分','gender','共学・男子校・女子校など'],['偏差値の目安','deviation','コース別の目安'],['偏差値の出典・年度','deviationSource','模試名・年度・確認日'],['偏差値出典URL','deviationUrl','https://...'],['最寄り駅・アクセス','access','路線・駅・徒歩／バス時間'],['学校公式サイト','official','https://...'],['地図URL','map','Googleマップ等'],['学科・コース','courses','学科・専攻・コース別の内容'],['選抜方式・入試科目','selection','公式募集要項で確認した内容'],['内申・選抜基準','criteria','年度・出典と一緒に記録'],['学費・奨学金','tuition','授業料・施設費・支援制度'],['ICT・iPad環境','ict','端末の種類・購入／貸与'],['通学・アクセス詳細','commute','所要時間・交通費'],['学校の特色・部活動','features','公式資料で確認した内容'],['確認した公式情報・URL','sources','URL・資料名・確認日'],['自分用メモ・質問','notes','説明会で聞きたいこと']];el.innerHTML='<div class="school-profile-page"><div class="school-page-kicker">FOLIO.EXAM / SCHOOL DATABASE</div><section class="school-detail-hero school-hero-redesign"><div class="school-hero-top"><span class="school-hero-label">SCHOOL PROFILE</span><span class="school-hero-status">'+(research?'調査データあり':'調査データ準備中')+'</span></div><h1>'+esc(school.name)+'</h1>'+auditHtml+'<div class="school-detail-meta"><span class="school-detail-chip">'+esc(school.type||'学校区分未設定')+'</span><span>'+esc(v.address||'所在地未登録')+'</span></div><div class="school-hero-actions"><button class="btn" onclick="setFirstChoice('+school.id+')">'+(school.firstChoice?'★ 第一志望に設定済み':'☆ 第一志望に設定')+'</button><button class="btn light" onclick="toggleCompare('+school.id+',!compareIds.includes('+school.id+'))">'+(compareIds.includes(school.id)?'比較から外す':'比較に追加')+'</button><button class="btn light" type="button" onclick="downloadSchoolDossier()">資料をダウンロード ↓</button></div></section>'+profileHtml+kanagawaGuideHtml+admissionHtml+'<div class="school-section-title"><div><div class="eyebrow">SCHOOL GUIDE</div><h2>学校を知る</h2></div><span>テーマ別ガイド</span></div>'+researchHtml+'<details class="school-edit-accordion"><summary><span><strong>学校データを編集・追加する</strong><small>住所・偏差値・入試情報・費用などを記録</small></span><span class="school-edit-plus">＋</span></summary><div class="school-detail-edit">'+editKeys.map(x=>field(x[0],x[1],x[2])).join('')+'<div class="school-detail-actions"><button class="btn" onclick="saveSchoolDetail()">この学校の情報を保存</button><button class="btn light" onclick="showPage(\'schools\')">高校一覧に戻る</button></div></div></details><p class="school-detail-empty school-local-note">個人で追加したメモはこのブラウザ内に保存されます。学校公式の確認済み情報とは区別してください。</p><div class="school-bottom-actions"><button class="btn light" onclick="showPage(\'schools\')">← 高校一覧に戻る</button></div></div>'}
 function downloadSchoolDossier(){
