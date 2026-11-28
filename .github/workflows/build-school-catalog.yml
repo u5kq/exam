@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/build-school-catalog.yml"
+      - "scripts/build-school-catalog.py"
   workflow_dispatch:
 permissions:
   contents: write
