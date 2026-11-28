@@ -540,7 +540,7 @@ function getSchoolClubLists(school){
   culture:items.find(x=>String(x[0]||'').includes('部活動（文化部）'))?.[1]||''
  };
 }
-function splitClubEntries(value){return String(value||'').split(/[、,，;；／\/\n]+/).map(x=>x.trim()).filter(Boolean).filter(x=>x.length<90)}
+function splitClubEntries(value){return String(value||'').split(/[、,，;；／・]+|\n/).map(x=>x.trim()).filter(Boolean).filter(x=>x.length<90)}
 function renderClubFinder(){
  const root=document.getElementById('clubFinderResults');if(!root)return;
  const query=(document.getElementById('clubFinderQuery')?.value||'').trim().toLowerCase();
