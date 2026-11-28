@@ -1,0 +1,18 @@
+{
+  "source": "文部科学省 学校コード一覧（令和8年5月1日時点・暫定版）",
+  "sourceUrl": "https://www.mext.go.jp/b_menu/toukei/mext_01087.html",
+  "published": "2026-05-29",
+  "asOf": "2026-05-01",
+  "totalUniqueSchoolCodes": 6167,
+  "bySchoolKindCode": {
+    "D1": 4903,
+    "D2": 60,
+    "E1": 1204
+  },
+  "byCampusType": {
+    "本校": 5954,
+    "分校": 213
+  },
+  "exactNameAddressKindDuplicateRows": 0,
+  "note": "D1には全日制・定時制・通信制の各課程が含まれます。学校コード一覧だけでは課程別の学校名を重複なく切り分けられないため、1学校コードにつき1件で登録し、課程情報は別資料で確認します。E1は特別支援学校（高等部を含む学校）、D2は中等教育学校です。廃止校は除外しています。"
+}
